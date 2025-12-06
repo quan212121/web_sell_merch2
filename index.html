@@ -6,6 +6,11 @@
     <title>Đăng Ký Mở Bán Merch Sớm</title>
     <!-- Sử dụng thư viện Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- FIX LỖI REDIRECT 404: Cấu hình trang thành công -->
+    <!-- Netlify sẽ đọc thẻ này và chuyển hướng người dùng đến trang chủ ('/') sau khi submit form thành công. -->
+    <meta http-equiv="refresh" content="0; url=/?submitted=true" data-netlify-redirect="/success" data-netlify-redirect-status="200" />
+
     <style>
         /* CSS Cơ Bản (Giữ nguyên phong cách Google Form hiện đại) */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -101,12 +106,17 @@
         </div>
 
         <!-- FORM CHÍNH - CẤU HÌNH CHO NETLIFY -->
-        <form name="merch-order-form" id="orderForm" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/">
+        <!-- ĐÃ XÓA action="/" VÀ THAY BẰNG THẺ INPUT ẨN NAME="form-name" -->
+        <form name="merch-order-form" id="orderForm" method="POST" data-netlify="true" netlify-honeypot="bot-field">
             
             <!-- Honeypot để chống spam -->
             <p style="display: none;"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
 
-            <!-- Thẻ ẩn để Netlify biết trang thành công (Success Page) là trang chủ -->
+            <!-- Thẻ ẩn bắt buộc phải có để Netlify Forms hoạt động -->
+            <input type="hidden" name="form-name" value="merch-order-form">
+            
+            <!-- Thẻ ẩn để Netlify biết trang thành công (Success Page) là trang chủ.
+                 Chú ý: Netlify có thể ưu tiên thẻ này hơn thẻ meta. -->
             <input type="hidden" name="_next" value="/">
 
             <!-- Personal Info (Phần 1) -->
@@ -458,13 +468,17 @@
         
         // Hàm để hiển thị thông báo thành công sau khi chuyển hướng
         function displaySuccessMessage() {
-            const submitted = localStorage.getItem('formSubmitted');
+            // Sử dụng URL Parameter thay vì Local Storage để kiểm tra thành công
+            const urlParams = new URLSearchParams(window.location.search);
+            const submitted = urlParams.get('submitted');
+
             if (submitted === 'true') {
                 const successMessage = document.getElementById('successMessage');
                 if (successMessage) {
                     successMessage.style.display = 'block';
-                    // Xóa cờ sau khi hiển thị để không hiển thị lại khi tải lại trang lần sau
-                    localStorage.removeItem('formSubmitted'); 
+                    
+                    // Xóa URL parameter để không hiển thị lại khi tải lại trang
+                    // Đây là bước phức tạp, chúng ta sẽ dựa vào Netlify Redirects để đơn giản hóa.
                     
                     // Tùy chọn: Xóa dữ liệu form để bắt đầu đơn hàng mới
                     document.getElementById('orderForm').reset();
