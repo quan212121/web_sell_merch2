@@ -4,98 +4,952 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Ký Mở Bán Merch Sớm</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* CSS Cơ Bản (Tùy chỉnh thêm theo ý bạn) */
-        body { font-family: Arial, sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; padding: 20px; }
-        .container { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); max-width: 600px; width: 100%; }
-        h1 { text-align: center; color: #333; }
-        label { display: block; margin-top: 15px; font-weight: bold; }
-        input[type="text"], input[type="email"], input[type="number"], input[type="tel"] { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .product-item { display: flex; align-items: center; margin-bottom: 10px; border-bottom: 1px dashed #eee; padding-bottom: 10px; }
-        .product-item label { flex: 3; margin-top: 0; font-weight: normal; }
-        .product-item input[type="number"] { flex: 1; margin-left: 20px; text-align: right; }
-        .summary { border-top: 2px solid #5c6bc0; padding-top: 15px; margin-top: 20px; font-size: 1.2em; font-weight: bold; }
-        .summary span { float: right; color: #e53935; }
-        button { background-color: #5c6bc0; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; width: 100%; margin-top: 20px; font-size: 1.1em; }
-        button:hover { background-color: #3f51b5; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            background: #f0ebf8;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .form-container {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        /* Header Section */
+        .form-header {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            border-top: 10px solid #673ab7;
+        }
+
+        .header-banner {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-banner::before {
+            content: '🎁';
+            font-size: 80px;
+            opacity: 0.3;
+            position: absolute;
+            top: 20px;
+            right: 40px;
+        }
+
+        .header-content {
+            padding: 24px;
+        }
+
+        .form-title {
+            font-size: 32px;
+            color: #202124;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .form-description {
+            color: #5f6368;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Question Section */
+        .question-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 12px;
+            border-left: 6px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .question-section:hover {
+            border-left-color: #673ab7;
+        }
+
+        .question-section.focused {
+            border-left-color: #673ab7;
+        }
+
+        .question-title {
+            font-size: 16px;
+            color: #202124;
+            margin-bottom: 4px;
+            font-weight: 400;
+        }
+
+        .required-star {
+            color: #d93025;
+            margin-left: 4px;
+        }
+
+        .question-description {
+            font-size: 13px;
+            color: #5f6368;
+            margin-bottom: 20px;
+        }
+
+        /* Product Item */
+        .product-item {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            margin: 12px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.2s;
+            gap: 16px;
+        }
+
+        .product-item:hover {
+            background: #f1f3f4;
+        }
+
+        .product-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+        }
+
+        .product-details {
+            flex: 1;
+        }
+
+        .product-name {
+            font-size: 15px;
+            color: #202124;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .product-price {
+            font-size: 14px;
+            color: #673ab7;
+            font-weight: 500;
+        }
+
+        .product-badge {
+            display: inline-block;
+            background: #ffd700;
+            color: #333;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quantity-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #dadce0;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #673ab7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .quantity-btn:hover {
+            background: #f8f9fa;
+            border-color: #673ab7;
+        }
+
+        .quantity-btn:active {
+            background: #e8eaed;
+        }
+
+        .quantity-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .quantity-input {
+            width: 60px;
+            padding: 8px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 16px;
+            text-align: center;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .quantity-input:hover {
+            border-color: #202124;
+        }
+
+        .quantity-input:focus {
+            outline: none;
+            border-color: #673ab7;
+            border-width: 2px;
+        }
+
+        /* Text Input */
+        .text-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: none;
+            border-bottom: 1px solid #dadce0;
+            font-size: 16px;
+            color: #202124;
+            background: transparent;
+            transition: border-color 0.2s;
+        }
+
+        .text-input:hover {
+            border-bottom-color: #202124;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-bottom: 2px solid #673ab7;
+        }
+
+        .text-input::placeholder {
+            color: #80868b;
+        }
+
+        /* Summary Section */
+        .summary-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 12px;
+            border-left: 6px solid #673ab7;
+        }
+
+        .summary-title {
+            font-size: 16px;
+            color: #202124;
+            margin-bottom: 16px;
+        }
+
+        .summary-amount {
+            font-size: 48px;
+            color: #673ab7;
+            font-weight: 500;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        /* Submit Button */
+        .submit-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .submit-button {
+            background: #673ab7;
+            color: white;
+            padding: 12px 32px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-button:hover {
+            background: #5e35b1;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+        }
+
+        .submit-button:active {
+            background: #512da8;
+        }
+
+        .clear-form {
+            color: #673ab7;
+            background: transparent;
+            border: none;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .clear-form:hover {
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        /* Footer */
+        .form-footer {
+            text-align: center;
+            padding: 20px;
+            color: #5f6368;
+            font-size: 12px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            color: #202124;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            font-size: 14px;
+            color: #5f6368;
+        }
+
+        .qr-section {
+            text-align: center;
+            padding: 24px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        .qr-code {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 16px;
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .bank-info {
+            font-size: 14px;
+            color: #5f6368;
+            margin-bottom: 16px;
+        }
+
+        .bank-name {
+            font-weight: 600;
+            color: #673ab7;
+            font-size: 16px;
+        }
+
+        .transfer-content {
+            background: white;
+            border: 2px dashed #dadce0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .transfer-label {
+            font-size: 12px;
+            color: #5f6368;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .transfer-text {
+            font-size: 16px;
+            color: #202124;
+            font-weight: 600;
+            word-break: break-all;
+            margin-bottom: 12px;
+        }
+
+        .copy-button {
+            width: 100%;
+            background: #673ab7;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .copy-button:hover {
+            background: #5e35b1;
+        }
+
+        .copy-button.copied {
+            background: #16a34a;
+        }
+
+        .order-summary {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .summary-row.total {
+            font-size: 18px;
+            font-weight: 600;
+            color: #673ab7;
+            padding-top: 12px;
+            border-top: 2px solid #dadce0;
+            margin-top: 12px;
+        }
+
+        .close-modal-btn {
+            width: 100%;
+            background: #f1f3f4;
+            color: #202124;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .close-modal-btn:hover {
+            background: #e8eaed;
+        }
+
+        .note-text {
+            font-size: 13px;
+            color: #5f6368;
+            text-align: center;
+            line-height: 1.6;
+            padding: 16px;
+            background: #fff3cd;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+        @media (max-width: 640px) {
+            body {
+                padding: 12px;
+            }
+
+            .form-title {
+                font-size: 24px;
+            }
+
+            .header-banner {
+                height: 150px;
+            }
+
+            .product-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .quantity-input {
+                width: 100%;
+            }
+
+            .submit-section {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .submit-button {
+                width: 100%;
+            }
+
+            .quantity-control {
+                width: 100%;
+            }
+
+            .summary-amount {
+                font-size: 36px;
+            }
+
+            .qr-code {
+                width: 200px;
+                height: 200px;
+            }
+
+            .modal-content {
+                padding: 24px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Mở bán merch sớm</h1>
+    <div class="form-container">
+        <!-- Header -->
+        <div class="form-header">
+            <div class="header-banner"></div>
+            <div class="header-content">
+                <h1 class="form-title">Mở bán merch sớm</h1>
+                <p class="form-description">Đặt hàng ngay hôm nay để nhận ưu đãi đặc biệt! Form đăng ký sẽ được mở cho đến khi hết hạn.</p>
+            </div>
+        </div>
 
-        <form name="merch-order-form" method="POST" data-netlify="true">
+        <form name="merch-order-form" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="return false;">
             
-            <fieldset>
-                <legend>Thông Tin Cá Nhân</legend>
-                <label for="ho_ten">Họ và Tên (*)</label>
-                <input type="text" id="ho_ten" name="ho_ten" required>
-                
-                <label for="mssv">Mã số sinh viên (*)</label>
-                <input type="text" id="mssv" name="ma_so_sinh_vien" required>
+            <!-- Personal Info -->
+            <div class="question-section">
+                <div class="question-title">Họ và tên <span class="required-star">*</span></div>
+                <input type="text" class="text-input" name="ho_ten" required placeholder="Câu trả lời của bạn">
+            </div>
 
-                <label for="email">Địa chỉ Email của bạn (*)</label>
-                <input type="email" id="email" name="email" required>
+            <div class="question-section">
+                <div class="question-title">Mã số sinh viên <span class="required-star">*</span></div>
+                <input type="text" class="text-input" name="ma_so_sinh_vien" required placeholder="Câu trả lời của bạn">
+            </div>
 
-                <label for="sdt">Số điện thoại cá nhân</label>
-                <input type="tel" id="sdt" name="so_dien_thoai">
-            </fieldset>
+            <div class="question-section">
+                <div class="question-title">Địa chỉ Email <span class="required-star">*</span></div>
+                <input type="email" class="text-input" name="email" required placeholder="Câu trả lời của bạn">
+            </div>
 
-            <fieldset>
-                <legend>Đặt hàng (Nhập số lượng)</legend>
+            <div class="question-section">
+                <div class="question-title">Số điện thoại cá nhân</div>
+                <input type="tel" class="text-input" name="so_dien_thoai" placeholder="Câu trả lời của bạn">
+            </div>
+
+            <!-- Products -->
+            <div class="question-section">
+                <div class="question-title">Badge</div>
+                <div class="question-description">15.000 VNĐ</div>
                 
                 <div class="product-item" data-price="15000">
-                    <label>Badge (15.000 VNĐ)</label>
-                    <input type="number" name="sl_badge" min="0" value="0" oninput="calculateTotal()">
+                    <div class="product-image">🎖️</div>
+                    <div class="product-details">
+                        <div class="product-name">Badge</div>
+                        <div class="product-price">15.000 VNĐ</div>
+                    </div>
+                    <div class="quantity-control">
+                        <button type="button" class="quantity-btn" onclick="decreaseQuantity(this)">−</button>
+                        <input type="number" class="quantity-input" name="sl_badge" min="0" value="0" oninput="calculateTotal()" onchange="updateButtons(this)">
+                        <button type="button" class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                    </div>
                 </div>
+            </div>
 
+            <div class="question-section">
+                <div class="question-title">Dây thẻ</div>
+                <div class="question-description">30.000 VNĐ</div>
+                
                 <div class="product-item" data-price="30000">
-                    <label>Dây thẻ (30.000 VNĐ)</label>
-                    <input type="number" name="sl_day_the" min="0" value="0" oninput="calculateTotal()">
+                    <div class="product-image">🏷️</div>
+                    <div class="product-details">
+                        <div class="product-name">Dây thẻ</div>
+                        <div class="product-price">30.000 VNĐ</div>
+                    </div>
+                    <div class="quantity-control">
+                        <button type="button" class="quantity-btn" onclick="decreaseQuantity(this)">−</button>
+                        <input type="number" class="quantity-input" name="sl_day_the" min="0" value="0" oninput="calculateTotal()" onchange="updateButtons(this)">
+                        <button type="button" class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                    </div>
                 </div>
+            </div>
 
+            <div class="question-section">
+                <div class="question-title">Keychain</div>
+                <div class="question-description">15.000 VNĐ</div>
+                
                 <div class="product-item" data-price="15000">
-                    <label>Keychain (15.000 VNĐ)</label>
-                    <input type="number" name="sl_keychain" min="0" value="0" oninput="calculateTotal()">
+                    <div class="product-image">🔑</div>
+                    <div class="product-details">
+                        <div class="product-name">Keychain</div>
+                        <div class="product-price">15.000 VNĐ</div>
+                    </div>
+                    <div class="quantity-control">
+                        <button type="button" class="quantity-btn" onclick="decreaseQuantity(this)">−</button>
+                        <input type="number" class="quantity-input" name="sl_keychain" min="0" value="0" oninput="calculateTotal()" onchange="updateButtons(this)">
+                        <button type="button" class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                    </div>
                 </div>
+            </div>
 
+            <div class="question-section">
+                <div class="question-title">Sticker</div>
+                <div class="question-description">15.000 VNĐ</div>
+                
                 <div class="product-item" data-price="15000">
-                    <label>Sticker (15.000 VNĐ)</label>
-                    <input type="number" name="sl_sticker" min="0" value="0" oninput="calculateTotal()">
+                    <div class="product-image">✨</div>
+                    <div class="product-details">
+                        <div class="product-name">Sticker</div>
+                        <div class="product-price">15.000 VNĐ</div>
+                    </div>
+                    <div class="quantity-control">
+                        <button type="button" class="quantity-btn" onclick="decreaseQuantity(this)">−</button>
+                        <input type="number" class="quantity-input" name="sl_sticker" min="0" value="0" oninput="calculateTotal()" onchange="updateButtons(this)">
+                        <button type="button" class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                    </div>
                 </div>
+            </div>
+
+            <div class="question-section">
+                <div class="question-title">Vỏ thẻ</div>
+                <div class="question-description">40.000 VNĐ</div>
                 
                 <div class="product-item" data-price="40000">
-                    <label>Vỏ thẻ (40.000 VNĐ)</label>
-                    <input type="number" name="sl_vo_the" min="0" value="0" oninput="calculateTotal()">
+                    <div class="product-image">💳</div>
+                    <div class="product-details">
+                        <div class="product-name">Vỏ thẻ</div>
+                        <div class="product-price">40.000 VNĐ</div>
+                    </div>
+                    <div class="quantity-control">
+                        <button type="button" class="quantity-btn" onclick="decreaseQuantity(this)">−</button>
+                        <input type="number" class="quantity-input" name="sl_vo_the" min="0" value="0" oninput="calculateTotal()" onchange="updateButtons(this)">
+                        <button type="button" class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                    </div>
                 </div>
-                
-                <div class="product-item" data-price="100000"> 
-                    <label>Full set 5 món (Giá set: 100.000 VNĐ)</label>
-                    <input type="number" name="sl_full_set" min="0" value="0" oninput="calculateTotal()">
-                </div>
-            </fieldset>
+            </div>
 
-            <div class="summary">
-                Tổng Số Tiền Tạm Tính: <span id="total-amount">0 VNĐ</span>
+            <div class="question-section">
+                <div class="question-title">Full Set 5 Món</div>
+                <div class="question-description">100.000 VNĐ - Tiết kiệm 15.000 VNĐ</div>
+                
+                <div class="product-item" data-price="100000">
+                    <div class="product-image">🎁</div>
+                    <div class="product-details">
+                        <div class="product-name">Full Set 5 Món <span class="product-badge">TIẾT KIỆM</span></div>
+                        <div class="product-price">100.000 VNĐ</div>
+                    </div>
+                    <div class="quantity-control">
+                        <button type="button" class="quantity-btn" onclick="decreaseQuantity(this)">−</button>
+                        <input type="number" class="quantity-input" name="sl_full_set" min="0" value="0" oninput="calculateTotal()" onchange="updateButtons(this)">
+                        <button type="button" class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="summary-section">
+                <div class="question-title">Tổng số tiền tạm tính</div>
+                <div class="summary-amount" id="total-amount">0 ₫</div>
                 <input type="hidden" name="tong_tien_dat_hang" id="hidden-total" value="0">
             </div>
 
-            <button type="submit">XÁC NHẬN ĐẶT HÀNG SỚM</button>
+            <!-- Submit -->
+            <div class="submit-section">
+                <button type="button" class="clear-form" onclick="clearForm()">Xóa hết câu trả lời</button>
+                <button type="button" class="submit-button" onclick="handleSubmit()">Gửi</button>
+            </div>
         </form>
+
+        <div class="form-footer">
+            Không bao giờ gửi mật khẩu thông qua Google Biểu mẫu.
+        </div>
     </div>
 
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">✅</div>
+                <h2 class="modal-title">Đặt hàng thành công!</h2>
+                <p class="modal-subtitle">Vui lòng chuyển khoản để hoàn tất đơn hàng</p>
+            </div>
+
+            <div class="order-summary" id="orderSummaryModal">
+                <div class="summary-row">
+                    <span>Người đặt:</span>
+                    <span id="modal-name">-</span>
+                </div>
+                <div class="summary-row">
+                    <span>MSSV:</span>
+                    <span id="modal-mssv">-</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Tổng tiền:</span>
+                    <span id="modal-total">0 ₫</span>
+                </div>
+            </div>
+
+            <div class="qr-section">
+                <div class="qr-code" id="qrCode">
+                    <!-- QR Code will be generated here -->
+                </div>
+                <div class="bank-info">
+                    <div class="bank-name">Ngân hàng: MB Bank</div>
+                    <div>STK: 0123456789</div>
+                    <div>Chủ TK: NGUYEN VAN A</div>
+                </div>
+            </div>
+
+            <div class="transfer-content">
+                <div class="transfer-label">NỘI DUNG CHUYỂN KHOẢN:</div>
+                <div class="transfer-text" id="transferContent">Nguyen_Van_A_202417184</div>
+                <button type="button" class="copy-button" onclick="copyTransferContent()">
+                    <i class="fas fa-copy"></i>
+                    <span id="copyBtnText">Sao chép nội dung</span>
+                </button>
+            </div>
+
+            <div class="note-text">
+                ⚠️ <strong>Lưu ý:</strong> Vui lòng chuyển khoản đúng nội dung để đơn hàng được xử lý tự động. Sau khi chuyển khoản, bạn sẽ nhận email xác nhận trong vòng 24h.
+            </div>
+
+            <button type="button" class="close-modal-btn" onclick="closeModal()">
+                Đóng
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
     <script>
-        // Hàm tính toán tổng tiền
+        function generateQRCode(content) {
+            const qrContainer = document.getElementById('qrCode');
+            // Temporary placeholder QR code image
+            qrContainer.innerHTML = `
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                    <div style="color: white; text-align: center; padding: 20px;">
+                        <div style="font-size: 48px; margin-bottom: 8px;">📱</div>
+                        <div style="font-size: 14px; font-weight: 600;">QR CODE</div>
+                        <div style="font-size: 11px; opacity: 0.8; margin-top: 4px;">Thanh toán</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showPaymentModal() {
+            console.log('Show payment modal called'); // Debug
+            
+            // Get form data
+            const name = document.querySelector('input[name="ho_ten"]').value;
+            const mssv = document.querySelector('input[name="ma_so_sinh_vien"]').value;
+            const total = document.getElementById('hidden-total').value;
+            const formattedTotal = parseInt(total).toLocaleString('vi-VN') + ' ₫';
+
+            console.log('Name:', name, 'MSSV:', mssv, 'Total:', total); // Debug
+
+            // Update modal content
+            document.getElementById('modal-name').textContent = name;
+            document.getElementById('modal-mssv').textContent = mssv;
+            document.getElementById('modal-total').textContent = formattedTotal;
+
+            // Generate transfer content
+            const transferContent = name.split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                .join('_') + '_' + mssv;
+            
+            document.getElementById('transferContent').textContent = transferContent;
+
+            // Generate QR Code for banking
+            const bankingQR = `2|99|${mssv}|${name}|novanam854@gmail.com|0|0|${total}|${transferContent}`;
+            generateQRCode(bankingQR);
+
+            // Show modal
+            const modal = document.getElementById('paymentModal');
+            console.log('Modal element:', modal); // Debug
+            modal.classList.add('show');
+            console.log('Modal classes:', modal.classList); // Debug
+        }
+
+        function closeModal() {
+            document.getElementById('paymentModal').classList.remove('show');
+        }
+
+        function copyTransferContent() {
+            const content = document.getElementById('transferContent').textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                const btn = document.querySelector('.copy-button');
+                const btnText = document.getElementById('copyBtnText');
+                
+                btn.classList.add('copied');
+                btnText.textContent = 'Đã sao chép!';
+                
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btnText.textContent = 'Sao chép nội dung';
+                }, 2000);
+            });
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('paymentModal').addEventListener('click', (e) => {
+            if (e.target.id === 'paymentModal') {
+                closeModal();
+            }
+        });
+
+        // Handle form submission
+        function handleSubmit() {
+            console.log('handleSubmit called');
+            
+            // Validate form fields
+            const name = document.querySelector('input[name="ho_ten"]').value.trim();
+            const mssv = document.querySelector('input[name="ma_so_sinh_vien"]').value.trim();
+            const email = document.querySelector('input[name="email"]').value.trim();
+            
+            if (!name) {
+                alert('Vui lòng nhập họ tên!');
+                return;
+            }
+            
+            if (!mssv) {
+                alert('Vui lòng nhập mã số sinh viên!');
+                return;
+            }
+            
+            if (!email) {
+                alert('Vui lòng nhập email!');
+                return;
+            }
+            
+            // Validate at least one product selected
+            const total = parseInt(document.getElementById('hidden-total').value);
+            if (total === 0) {
+                alert('Vui lòng chọn ít nhất một sản phẩm!');
+                return;
+            }
+
+            // Show payment modal
+            showPaymentModal();
+        }
+
+        // Remove the old form submit listener
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                return false;
+            });
+        }
+
+        function increaseQuantity(button) {
+            const input = button.parentElement.querySelector('.quantity-input');
+            input.value = parseInt(input.value) + 1;
+            updateButtons(input);
+            calculateTotal();
+        }
+
+        function decreaseQuantity(button) {
+            const input = button.parentElement.querySelector('.quantity-input');
+            const currentValue = parseInt(input.value);
+            if (currentValue > 0) {
+                input.value = currentValue - 1;
+                updateButtons(input);
+                calculateTotal();
+            }
+        }
+
+        function updateButtons(input) {
+            const decreaseBtn = input.parentElement.querySelector('.quantity-btn:first-child');
+            const value = parseInt(input.value) || 0;
+            
+            if (value <= 0) {
+                decreaseBtn.disabled = true;
+            } else {
+                decreaseBtn.disabled = false;
+            }
+        }
+
         function calculateTotal() {
             let total = 0;
             const productItems = document.querySelectorAll('.product-item');
 
             productItems.forEach(item => {
-                const price = parseInt(item.getAttribute('data-price')); // Lấy giá từ thuộc tính data-price
+                const price = parseInt(item.getAttribute('data-price'));
                 const quantityInput = item.querySelector('input[type="number"]');
-                let quantity = parseInt(quantityInput.value) || 0; // Lấy số lượng, nếu không nhập thì là 0
+                let quantity = parseInt(quantityInput.value) || 0;
 
-                // Đảm bảo số lượng không âm
                 if (quantity < 0) {
                     quantity = 0;
                     quantityInput.value = 0;
@@ -104,16 +958,45 @@
                 total += price * quantity;
             });
 
-            // Định dạng tiền tệ
-            const formattedTotal = total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+            const formattedTotal = total.toLocaleString('vi-VN') + ' ₫';
             
-            // Cập nhật hiển thị và trường ẩn
             document.getElementById('total-amount').textContent = formattedTotal;
-            document.getElementById('hidden-total').value = total; // Lưu giá trị số vào trường ẩn
+            document.getElementById('hidden-total').value = total;
         }
 
-        // Chạy hàm tính toán khi load trang lần đầu
-        document.addEventListener('DOMContentLoaded', calculateTotal);
+        function clearForm() {
+            if (confirm('Bạn có chắc chắn muốn xóa hết câu trả lời?')) {
+                document.querySelectorAll('input[type="number"]').forEach(input => {
+                    input.value = 0;
+                    updateButtons(input);
+                });
+                document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]').forEach(input => {
+                    input.value = '';
+                });
+                calculateTotal();
+            }
+        }
+
+        // Add focus effect
+        document.querySelectorAll('.question-section').forEach(section => {
+            const input = section.querySelector('input');
+            if (input) {
+                input.addEventListener('focus', () => {
+                    section.classList.add('focused');
+                });
+                input.addEventListener('blur', () => {
+                    section.classList.remove('focused');
+                });
+            }
+        });
+
+        // Initialize buttons state
+        document.addEventListener('DOMContentLoaded', () => {
+            calculateTotal();
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                updateButtons(input);
+            });
+        });
     </script>
 </body>
 </html>
