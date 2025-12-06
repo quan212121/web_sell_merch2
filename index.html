@@ -4,574 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Ký Mở Bán Merch Sớm</title>
+    <!-- Sử dụng thư viện Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Google Sans', Roboto, Arial, sans-serif;
-            background: #f0ebf8;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .form-container {
-            max-width: 760px;
-            margin: 0 auto;
-        }
-
-        /* Header Section */
-        .form-header {
-            background: white;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            overflow: hidden;
-            border-top: 10px solid #673ab7;
-        }
-
-        .header-banner {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header-banner::before {
-            content: '🎁';
-            font-size: 80px;
-            opacity: 0.3;
-            position: absolute;
-            top: 20px;
-            right: 40px;
-        }
-
-        .header-content {
-            padding: 24px;
-        }
-
-        .form-title {
-            font-size: 32px;
-            color: #202124;
-            font-weight: 400;
-            margin-bottom: 8px;
-        }
-
-        .form-description {
-            color: #5f6368;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        /* Question Section */
-        .question-section {
-            background: white;
-            border-radius: 8px;
-            padding: 24px;
-            margin-bottom: 12px;
-            border-left: 6px solid transparent;
-            transition: border-color 0.2s;
-        }
-
-        .question-section:hover {
-            border-left-color: #673ab7;
-        }
-
-        .question-section.focused {
-            border-left-color: #673ab7;
-        }
-
-        .question-title {
-            font-size: 16px;
-            color: #202124;
-            margin-bottom: 4px;
-            font-weight: 400;
-        }
-
-        .required-star {
-            color: #d93025;
-            margin-left: 4px;
-        }
-
-        .question-description {
-            font-size: 13px;
-            color: #5f6368;
-            margin-bottom: 20px;
-        }
-
-        /* Product Item */
-        .product-item {
-            display: flex;
-            align-items: center;
-            padding: 16px;
-            margin: 12px 0;
-            background: #f8f9fa;
-            border-radius: 8px;
-            transition: all 0.2s;
-            gap: 16px;
-        }
-
-        .product-item:hover {
-            background: #f1f3f4;
-        }
-
-        .product-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 8px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-        }
-
-        .product-details {
-            flex: 1;
-        }
-
-        .product-name {
-            font-size: 15px;
-            color: #202124;
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-
-        .product-price {
-            font-size: 14px;
-            color: #673ab7;
-            font-weight: 500;
-        }
-
-        .product-badge {
-            display: inline-block;
-            background: #ffd700;
-            color: #333;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-left: 8px;
-        }
-
-        .quantity-control {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .quantity-btn {
-            width: 36px;
-            height: 36px;
-            border: 1px solid #dadce0;
-            background: white;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 18px;
-            color: #673ab7;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            font-weight: 600;
-        }
-
-        .quantity-btn:hover {
-            background: #f8f9fa;
-            border-color: #673ab7;
-        }
-
-        .quantity-btn:active {
-            background: #e8eaed;
-        }
-
-        .quantity-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        .quantity-input {
-            width: 60px;
-            padding: 8px;
-            border: 1px solid #dadce0;
-            border-radius: 4px;
-            font-size: 16px;
-            text-align: center;
-            transition: all 0.2s;
-            font-weight: 600;
-        }
-
-        .quantity-input:hover {
-            border-color: #202124;
-        }
-
-        .quantity-input:focus {
-            outline: none;
-            border-color: #673ab7;
-            border-width: 2px;
-        }
-
-        /* Text Input */
-        .text-input {
-            width: 100%;
-            padding: 14px 16px;
-            border: none;
-            border-bottom: 1px solid #dadce0;
-            font-size: 16px;
-            color: #202124;
-            background: transparent;
-            transition: border-color 0.2s;
-        }
-
-        .text-input:hover {
-            border-bottom-color: #202124;
-        }
-
-        .text-input:focus {
-            outline: none;
-            border-bottom: 2px solid #673ab7;
-        }
-
-        .text-input::placeholder {
-            color: #80868b;
-        }
-
-        /* Summary Section */
-        .summary-section {
-            background: white;
-            border-radius: 8px;
-            padding: 24px;
-            margin-bottom: 12px;
-            border-left: 6px solid #673ab7;
-        }
-
-        .summary-title {
-            font-size: 16px;
-            color: #202124;
-            margin-bottom: 16px;
-        }
-
-        .summary-amount {
-            font-size: 48px;
-            color: #673ab7;
-            font-weight: 500;
-            text-align: center;
-            padding: 20px 0;
-        }
-
-        /* Submit Button */
-        .submit-section {
-            background: white;
-            border-radius: 8px;
-            padding: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .submit-button {
-            background: #673ab7;
-            color: white;
-            padding: 12px 32px;
-            border: none;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .submit-button:hover {
-            background: #5e35b1;
-            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
-        }
-
-        .submit-button:active {
-            background: #512da8;
-        }
-
-        .clear-form {
-            color: #673ab7;
-            background: transparent;
-            border: none;
-            padding: 12px 24px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .clear-form:hover {
-            background: #f8f9fa;
-            border-radius: 4px;
-        }
-
-        /* Footer */
-        .form-footer {
-            text-align: center;
-            padding: 20px;
-            color: #5f6368;
-            font-size: 12px;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 9999;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal.show {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 16px;
-            padding: 32px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            animation: slideIn 0.3s ease;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-header {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        .modal-icon {
-            font-size: 64px;
-            margin-bottom: 16px;
-        }
-
-        .modal-title {
-            font-size: 24px;
-            color: #202124;
-            font-weight: 500;
-            margin-bottom: 8px;
-        }
-
-        .modal-subtitle {
-            font-size: 14px;
-            color: #5f6368;
-        }
-
-        .qr-section {
-            text-align: center;
-            padding: 24px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            margin-bottom: 24px;
-        }
-
-        .qr-code {
-            width: 250px;
-            height: 250px;
-            margin: 0 auto 16px;
-            background: white;
-            padding: 16px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .qr-code img {
-            width: 100%;
-            height: 100%;
-        }
-
-        .bank-info {
-            font-size: 14px;
-            color: #5f6368;
-            margin-bottom: 16px;
-        }
-
-        .bank-name {
-            font-weight: 600;
-            color: #673ab7;
-            font-size: 16px;
-        }
-
-        .transfer-content {
-            background: white;
-            border: 2px dashed #dadce0;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
-        }
-
-        .transfer-label {
-            font-size: 12px;
-            color: #5f6368;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .transfer-text {
-            font-size: 16px;
-            color: #202124;
-            font-weight: 600;
-            word-break: break-all;
-            margin-bottom: 12px;
-        }
-
-        .copy-button {
-            width: 100%;
-            background: #673ab7;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .copy-button:hover {
-            background: #5e35b1;
-        }
-
-        .copy-button.copied {
-            background: #16a34a;
-        }
-
-        .order-summary {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 24px;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .summary-row.total {
-            font-size: 18px;
-            font-weight: 600;
-            color: #673ab7;
-            padding-top: 12px;
-            border-top: 2px solid #dadce0;
-            margin-top: 12px;
-        }
-
-        .close-modal-btn {
-            width: 100%;
-            background: #f1f3f4;
-            color: #202124;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .close-modal-btn:hover {
-            background: #e8eaed;
-        }
-
-        .note-text {
-            font-size: 13px;
-            color: #5f6368;
-            text-align: center;
-            line-height: 1.6;
-            padding: 16px;
-            background: #fff3cd;
-            border-radius: 8px;
-            margin-bottom: 16px;
-        }
+        /* CSS Cơ Bản (Giữ nguyên phong cách Google Form hiện đại) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Google Sans', Roboto, Arial, sans-serif; background: #f0ebf8; min-height: 100vh; padding: 20px; }
+        .form-container { max-width: 760px; margin: 0 auto; }
+        .form-header { background: white; border-radius: 8px; margin-bottom: 12px; overflow: hidden; border-top: 10px solid #673ab7; }
+        .header-banner { width: 100%; height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); position: relative; overflow: hidden; }
+        .header-content { padding: 24px; }
+        .form-title { font-size: 32px; color: #202124; font-weight: 400; margin-bottom: 8px; }
+        .form-description { color: #5f6368; font-size: 14px; line-height: 1.6; }
+        .question-section { background: white; border-radius: 8px; padding: 24px; margin-bottom: 12px; border-left: 6px solid transparent; transition: border-color 0.2s; }
+        .question-section.focused { border-left-color: #673ab7; }
+        .question-title { font-size: 16px; color: #202124; margin-bottom: 4px; font-weight: 400; }
+        .required-star { color: #d93025; margin-left: 4px; }
+        .question-description { font-size: 13px; color: #5f6368; margin-bottom: 20px; }
+        .product-item { display: flex; align-items: center; padding: 16px; margin: 12px 0; background: #f8f9fa; border-radius: 8px; transition: all 0.2s; gap: 16px; }
+        .product-image { width: 80px; height: 80px; border-radius: 8px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 36px; }
+        .product-details { flex: 1; }
+        .product-name { font-size: 15px; color: #202124; font-weight: 500; margin-bottom: 4px; }
+        .product-price { font-size: 14px; color: #673ab7; font-weight: 500; }
+        .product-badge { display: inline-block; background: #ffd700; color: #333; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; margin-left: 8px; }
+        .quantity-control { display: flex; align-items: center; gap: 8px; }
+        .quantity-btn { width: 36px; height: 36px; border: 1px solid #dadce0; background: white; border-radius: 4px; cursor: pointer; font-size: 18px; color: #673ab7; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-weight: 600; }
+        .quantity-btn:hover { background: #f8f9fa; border-color: #673ab7; }
+        .quantity-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .quantity-input { width: 60px; padding: 8px; border: 1px solid #dadce0; border-radius: 4px; font-size: 16px; text-align: center; transition: all 0.2s; font-weight: 600; }
+        .quantity-input:focus { outline: none; border-color: #673ab7; border-width: 2px; }
+        .text-input { width: 100%; padding: 14px 16px; border: none; border-bottom: 1px solid #dadce0; font-size: 16px; color: #202124; background: transparent; transition: border-color 0.2s; }
+        .text-input:focus { outline: none; border-bottom: 2px solid #673ab7; }
+        .summary-section { background: white; border-radius: 8px; padding: 24px; margin-bottom: 12px; border-left: 6px solid #673ab7; }
+        .summary-amount { font-size: 48px; color: #673ab7; font-weight: 500; text-align: center; padding: 20px 0; }
+        .submit-section { background: white; border-radius: 8px; padding: 24px; display: flex; justify-content: flex-end; align-items: center; }
+        .submit-button { background: #673ab7; color: white; padding: 12px 32px; border: none; border-radius: 4px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.5px; }
+        .submit-button:hover { background: #5e35b1; box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15); }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 9999; animation: fadeIn 0.3s ease; }
+        .modal.show { display: flex; align-items: center; justify-content: center; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .modal-content { background: white; border-radius: 16px; padding: 32px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); }
+        .modal-header { text-align: center; margin-bottom: 24px; }
+        .modal-icon { font-size: 64px; margin-bottom: 16px; color: #16a34a; }
+        .modal-title { font-size: 24px; color: #202124; font-weight: 500; margin-bottom: 8px; }
+        .order-summary { background: #f8f9fa; border-radius: 12px; padding: 16px; margin-bottom: 24px; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+        .summary-row.total { font-size: 18px; font-weight: 600; color: #673ab7; padding-top: 12px; border-top: 2px solid #dadce0; margin-top: 12px; }
+        .qr-section { text-align: center; padding: 24px; background: #f8f9fa; border-radius: 12px; margin-bottom: 24px; }
+        .qr-code { width: 250px; height: 250px; margin: 0 auto 16px; background: white; padding: 16px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+        .bank-name { font-weight: 600; color: #673ab7; font-size: 16px; }
+        .transfer-content { background: white; border: 2px dashed #dadce0; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+        .transfer-label { font-size: 12px; color: #5f6368; margin-bottom: 8px; font-weight: 500; }
+        .transfer-text { font-size: 16px; color: #202124; font-weight: 600; word-break: break-all; margin-bottom: 12px; }
+        .copy-button { width: 100%; background: #673ab7; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .copy-button:hover { background: #5e35b1; }
+        .copy-button.copied { background: #16a34a; }
+        .finalize-submit-btn { width: 100%; background: #16a34a; color: white; padding: 12px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-top: 16px; }
+        .finalize-submit-btn:hover { background: #15803d; }
+        .note-text { font-size: 13px; color: #5f6368; text-align: center; line-height: 1.6; padding: 16px; background: #fff3cd; border-radius: 8px; margin-bottom: 16px; }
+
+        /* Mobile Adjustments */
         @media (max-width: 640px) {
-            body {
-                padding: 12px;
-            }
-
-            .form-title {
-                font-size: 24px;
-            }
-
-            .header-banner {
-                height: 150px;
-            }
-
-            .product-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .quantity-input {
-                width: 100%;
-            }
-
-            .submit-section {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .submit-button {
-                width: 100%;
-            }
-
-            .quantity-control {
-                width: 100%;
-            }
-
-            .summary-amount {
-                font-size: 36px;
-            }
-
-            .qr-code {
-                width: 200px;
-                height: 200px;
-            }
-
-            .modal-content {
-                padding: 24px;
-            }
+            .form-title { font-size: 24px; }
+            .product-item { flex-direction: column; align-items: flex-start; }
+            .quantity-control { width: 100%; }
         }
     </style>
 </head>
@@ -582,38 +78,43 @@
             <div class="header-banner"></div>
             <div class="header-content">
                 <h1 class="form-title">Mở bán merch sớm</h1>
-                <p class="form-description">Đặt hàng ngay hôm nay để nhận ưu đãi đặc biệt! Form đăng ký sẽ được mở cho đến khi hết hạn.</p>
+                <p class="form-description">Đặt hàng ngay hôm nay để nhận ưu đãi đặc biệt! Vui lòng điền thông tin và số lượng bạn muốn đặt.</p>
             </div>
         </div>
 
-        <form name="merch-order-form" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="return false;">
+        <!-- FORM CHÍNH - CẤU HÌNH CHO NETLIFY -->
+        <form name="merch-order-form" id="orderForm" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="return handleFormSubmission(event);">
             
-            <!-- Personal Info -->
-            <div class="question-section">
+            <!-- Honeypot để chống spam -->
+            <p style="display: none;"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
+
+            <!-- Personal Info (Phần 1) -->
+            <div class="question-section" data-field="ho_ten">
                 <div class="question-title">Họ và tên <span class="required-star">*</span></div>
                 <input type="text" class="text-input" name="ho_ten" required placeholder="Câu trả lời của bạn">
             </div>
 
-            <div class="question-section">
+            <div class="question-section" data-field="mssv">
                 <div class="question-title">Mã số sinh viên <span class="required-star">*</span></div>
                 <input type="text" class="text-input" name="ma_so_sinh_vien" required placeholder="Câu trả lời của bạn">
             </div>
 
-            <div class="question-section">
+            <div class="question-section" data-field="email">
                 <div class="question-title">Địa chỉ Email <span class="required-star">*</span></div>
                 <input type="email" class="text-input" name="email" required placeholder="Câu trả lời của bạn">
             </div>
 
-            <div class="question-section">
+            <div class="question-section" data-field="sdt">
                 <div class="question-title">Số điện thoại cá nhân</div>
                 <input type="tel" class="text-input" name="so_dien_thoai" placeholder="Câu trả lời của bạn">
             </div>
 
-            <!-- Products -->
+            <!-- Products (Phần 2, 3, 4, 5, 6, 7 gộp lại) -->
             <div class="question-section">
-                <div class="question-title">Badge</div>
-                <div class="question-description">15.000 VNĐ</div>
+                <div class="question-title">Chi tiết Đặt hàng (Nhập số lượng)</div>
+                <div class="question-description">Bạn có thể đặt nhiều loại sản phẩm. Tổng tiền sẽ được tính tự động.</div>
                 
+                <!-- Badge -->
                 <div class="product-item" data-price="15000">
                     <div class="product-image">🎖️</div>
                     <div class="product-details">
@@ -626,12 +127,8 @@
                         <button type="button" class="quantity-btn" onclick="increaseQuantity(this)">+</button>
                     </div>
                 </div>
-            </div>
 
-            <div class="question-section">
-                <div class="question-title">Dây thẻ</div>
-                <div class="question-description">30.000 VNĐ</div>
-                
+                <!-- Dây thẻ -->
                 <div class="product-item" data-price="30000">
                     <div class="product-image">🏷️</div>
                     <div class="product-details">
@@ -644,12 +141,8 @@
                         <button type="button" class="quantity-btn" onclick="increaseQuantity(this)">+</button>
                     </div>
                 </div>
-            </div>
 
-            <div class="question-section">
-                <div class="question-title">Keychain</div>
-                <div class="question-description">15.000 VNĐ</div>
-                
+                <!-- Keychain -->
                 <div class="product-item" data-price="15000">
                     <div class="product-image">🔑</div>
                     <div class="product-details">
@@ -662,12 +155,8 @@
                         <button type="button" class="quantity-btn" onclick="increaseQuantity(this)">+</button>
                     </div>
                 </div>
-            </div>
 
-            <div class="question-section">
-                <div class="question-title">Sticker</div>
-                <div class="question-description">15.000 VNĐ</div>
-                
+                <!-- Sticker -->
                 <div class="product-item" data-price="15000">
                     <div class="product-image">✨</div>
                     <div class="product-details">
@@ -680,12 +169,8 @@
                         <button type="button" class="quantity-btn" onclick="increaseQuantity(this)">+</button>
                     </div>
                 </div>
-            </div>
 
-            <div class="question-section">
-                <div class="question-title">Vỏ thẻ</div>
-                <div class="question-description">40.000 VNĐ</div>
-                
+                <!-- Vỏ thẻ -->
                 <div class="product-item" data-price="40000">
                     <div class="product-image">💳</div>
                     <div class="product-details">
@@ -698,13 +183,9 @@
                         <button type="button" class="quantity-btn" onclick="increaseQuantity(this)">+</button>
                     </div>
                 </div>
-            </div>
 
-            <div class="question-section">
-                <div class="question-title">Full Set 5 Món</div>
-                <div class="question-description">100.000 VNĐ - Tiết kiệm 15.000 VNĐ</div>
-                
-                <div class="product-item" data-price="100000">
+                <!-- Full set 5 món -->
+                <div class="product-item" data-price="100000"> 
                     <div class="product-image">🎁</div>
                     <div class="product-details">
                         <div class="product-name">Full Set 5 Món <span class="product-badge">TIẾT KIỆM</span></div>
@@ -723,17 +204,19 @@
                 <div class="question-title">Tổng số tiền tạm tính</div>
                 <div class="summary-amount" id="total-amount">0 ₫</div>
                 <input type="hidden" name="tong_tien_dat_hang" id="hidden-total" value="0">
+                
+                <!-- Trường ẩn cho Nội dung chuyển khoản (Tự động tạo) -->
+                <input type="hidden" name="noi_dung_chuyen_khoan" id="hidden-transfer-content" value="">
             </div>
 
-            <!-- Submit -->
+            <!-- Submit (Sử dụng type="button" để gọi Modal) -->
             <div class="submit-section">
-                <button type="button" class="clear-form" onclick="clearForm()">Xóa hết câu trả lời</button>
-                <button type="button" class="submit-button" onclick="handleSubmit()">Gửi</button>
+                <button type="button" class="submit-button" onclick="handleSubmissionPreparation()">TIẾP TỤC & THANH TOÁN</button>
             </div>
         </form>
 
         <div class="form-footer">
-            Không bao giờ gửi mật khẩu thông qua Google Biểu mẫu.
+            Không bao giờ gửi mật khẩu thông qua Biểu mẫu này.
         </div>
     </div>
 
@@ -742,8 +225,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-icon">✅</div>
-                <h2 class="modal-title">Đặt hàng thành công!</h2>
-                <p class="modal-subtitle">Vui lòng chuyển khoản để hoàn tất đơn hàng</p>
+                <h2 class="modal-title">Xác nhận Đơn hàng</h2>
+                <p class="modal-subtitle">Vui lòng kiểm tra lại thông tin và chuyển khoản để hoàn tất.</p>
             </div>
 
             <div class="order-summary" id="orderSummaryModal">
@@ -752,18 +235,18 @@
                     <span id="modal-name">-</span>
                 </div>
                 <div class="summary-row">
-                    <span>MSSV:</span>
+                    <span>Mã SV:</span>
                     <span id="modal-mssv">-</span>
                 </div>
                 <div class="summary-row total">
-                    <span>Tổng tiền:</span>
+                    <span>Tổng tiền (VNĐ):</span>
                     <span id="modal-total">0 ₫</span>
                 </div>
             </div>
 
             <div class="qr-section">
                 <div class="qr-code" id="qrCode">
-                    <!-- QR Code will be generated here -->
+                    <!-- QR Code sẽ được tạo ở đây -->
                 </div>
                 <div class="bank-info">
                     <div class="bank-name">Ngân hàng: MB Bank</div>
@@ -773,8 +256,8 @@
             </div>
 
             <div class="transfer-content">
-                <div class="transfer-label">NỘI DUNG CHUYỂN KHOẢN:</div>
-                <div class="transfer-text" id="transferContent">Nguyen_Van_A_202417184</div>
+                <div class="transfer-label">NỘI DUNG CHUYỂN KHOẢN (BẮT BUỘC):</div>
+                <div class="transfer-text" id="transferContent"></div>
                 <button type="button" class="copy-button" onclick="copyTransferContent()">
                     <i class="fas fa-copy"></i>
                     <span id="copyBtnText">Sao chép nội dung</span>
@@ -782,11 +265,15 @@
             </div>
 
             <div class="note-text">
-                ⚠️ <strong>Lưu ý:</strong> Vui lòng chuyển khoản đúng nội dung để đơn hàng được xử lý tự động. Sau khi chuyển khoản, bạn sẽ nhận email xác nhận trong vòng 24h.
+                ⚠️ <strong>Bước cuối:</strong> Nhấn nút "Hoàn tất Đơn hàng" để gửi Form lên hệ thống. Đơn hàng chỉ được xác nhận khi bạn chuyển khoản **đúng nội dung**.
             </div>
 
+            <!-- NÚT GỬI FORM CHÍNH THỨC -->
+            <button type="button" class="finalize-submit-btn" onclick="submitFormToNetlify()">
+                HOÀN TẤT ĐƠN HÀNG & GỬI FORM
+            </button>
             <button type="button" class="close-modal-btn" onclick="closeModal()">
-                Đóng
+                Chỉnh sửa Đơn hàng (Đóng)
             </button>
         </div>
     </div>
@@ -794,52 +281,63 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <script>
+        // Hàm này không cần thiết nếu dùng form.submit()
+        function handleFormSubmission(event) {
+            event.preventDefault(); // Ngăn gửi form mặc định
+            return false;
+        }
+
+        // Tạo mã QR (Placeholder - BẠN PHẢI TỰ THAY ĐỔI)
         function generateQRCode(content) {
             const qrContainer = document.getElementById('qrCode');
-            // Temporary placeholder QR code image
-            qrContainer.innerHTML = `
-                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <div style="color: white; text-align: center; padding: 20px;">
-                        <div style="font-size: 48px; margin-bottom: 8px;">📱</div>
-                        <div style="font-size: 14px; font-weight: 600;">QR CODE</div>
-                        <div style="font-size: 11px; opacity: 0.8; margin-top: 4px;">Thanh toán</div>
-                    </div>
-                </div>
-            `;
+            qrContainer.innerHTML = ''; // Xóa QR cũ
+            
+            // TẠO QR ĐỘNG DÙNG THƯ VIỆN QRCODE.JS
+            // Chú ý: Đây là QR tĩnh chỉ chứa nội dung chuyển khoản. Để tạo VietQR, bạn cần API bên ngoài.
+            
+            new QRCode(qrContainer, {
+                text: content, // Nội dung chuyển khoản
+                width: 250,
+                height: 250,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        }
+        
+        // BƯỚC QUAN TRỌNG: Gửi form lên Netlify sau khi xác nhận trong Modal
+        function submitFormToNetlify() {
+            const form = document.getElementById('orderForm');
+            // Dữ liệu đã hợp lệ và đã xem thông tin thanh toán, giờ gửi Form chính thức
+            form.submit(); // Gửi form Netlify
         }
 
         function showPaymentModal() {
-            console.log('Show payment modal called'); // Debug
-            
-            // Get form data
             const name = document.querySelector('input[name="ho_ten"]').value;
             const mssv = document.querySelector('input[name="ma_so_sinh_vien"]').value;
             const total = document.getElementById('hidden-total').value;
             const formattedTotal = parseInt(total).toLocaleString('vi-VN') + ' ₫';
+            
+            // Tạo Nội dung Chuyển khoản UNIQUE (Ví dụ: Ten_Day_Du_MSSV)
+            const transferNamePart = name.split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                .join('_');
+            const transferContent = `${transferNamePart}_${mssv}`;
+            
+            // Cập nhật trường ẩn để gửi Nội dung chuyển khoản
+            document.getElementById('hidden-transfer-content').value = transferContent;
 
-            console.log('Name:', name, 'MSSV:', mssv, 'Total:', total); // Debug
-
-            // Update modal content
+            // Cập nhật Modal
             document.getElementById('modal-name').textContent = name;
             document.getElementById('modal-mssv').textContent = mssv;
             document.getElementById('modal-total').textContent = formattedTotal;
-
-            // Generate transfer content
-            const transferContent = name.split(' ')
-                .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-                .join('_') + '_' + mssv;
-            
             document.getElementById('transferContent').textContent = transferContent;
+            
+            // Nội dung QR (Cần mã hóa theo chuẩn Ngân hàng, tạm dùng nội dung chuyển khoản)
+            generateQRCode(transferContent); 
 
-            // Generate QR Code for banking
-            const bankingQR = `2|99|${mssv}|${name}|novanam854@gmail.com|0|0|${total}|${transferContent}`;
-            generateQRCode(bankingQR);
-
-            // Show modal
-            const modal = document.getElementById('paymentModal');
-            console.log('Modal element:', modal); // Debug
-            modal.classList.add('show');
-            console.log('Modal classes:', modal.classList); // Debug
+            // Hiển thị Modal
+            document.getElementById('paymentModal').classList.add('show');
         }
 
         function closeModal() {
@@ -847,72 +345,50 @@
         }
 
         function copyTransferContent() {
+            // Sử dụng document.execCommand('copy') thay vì navigator.clipboard.writeText
             const content = document.getElementById('transferContent').textContent;
-            navigator.clipboard.writeText(content).then(() => {
-                const btn = document.querySelector('.copy-button');
-                const btnText = document.getElementById('copyBtnText');
-                
-                btn.classList.add('copied');
-                btnText.textContent = 'Đã sao chép!';
-                
-                setTimeout(() => {
-                    btn.classList.remove('copied');
-                    btnText.textContent = 'Sao chép nội dung';
-                }, 2000);
-            });
+            const tempInput = document.createElement('textarea');
+            tempInput.value = content;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const btn = document.querySelector('.copy-button');
+            const btnText = document.getElementById('copyBtnText');
+            
+            btn.classList.add('copied');
+            btnText.textContent = 'Đã sao chép!';
+            
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                btnText.textContent = 'Sao chép nội dung';
+            }, 2000);
         }
 
-        // Close modal when clicking outside
-        document.getElementById('paymentModal').addEventListener('click', (e) => {
-            if (e.target.id === 'paymentModal') {
-                closeModal();
-            }
-        });
-
-        // Handle form submission
-        function handleSubmit() {
-            console.log('handleSubmit called');
-            
-            // Validate form fields
+        // Chuẩn bị trước khi hiện Modal (Validation)
+        function handleSubmissionPreparation() {
             const name = document.querySelector('input[name="ho_ten"]').value.trim();
             const mssv = document.querySelector('input[name="ma_so_sinh_vien"]').value.trim();
             const email = document.querySelector('input[name="email"]').value.trim();
-            
-            if (!name) {
-                alert('Vui lòng nhập họ tên!');
-                return;
-            }
-            
-            if (!mssv) {
-                alert('Vui lòng nhập mã số sinh viên!');
-                return;
-            }
-            
-            if (!email) {
-                alert('Vui lòng nhập email!');
-                return;
-            }
-            
-            // Validate at least one product selected
             const total = parseInt(document.getElementById('hidden-total').value);
+
+            if (!name || !mssv || !email) {
+                // Thay alert bằng modal box sau này
+                alert('Vui lòng điền đủ Họ tên, MSSV và Email!');
+                return;
+            }
+            
             if (total === 0) {
-                alert('Vui lòng chọn ít nhất một sản phẩm!');
+                alert('Vui lòng đặt ít nhất một sản phẩm!');
                 return;
             }
 
-            // Show payment modal
+            // Nếu dữ liệu hợp lệ, hiện Modal xác nhận
             showPaymentModal();
         }
-
-        // Remove the old form submit listener
-        const form = document.querySelector('form');
-        if (form) {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                return false;
-            });
-        }
-
+        
+        // Các hàm tính toán số lượng và tổng tiền (Giữ nguyên)
         function increaseQuantity(button) {
             const input = button.parentElement.querySelector('.quantity-input');
             input.value = parseInt(input.value) + 1;
@@ -933,7 +409,6 @@
         function updateButtons(input) {
             const decreaseBtn = input.parentElement.querySelector('.quantity-btn:first-child');
             const value = parseInt(input.value) || 0;
-            
             if (value <= 0) {
                 decreaseBtn.disabled = true;
             } else {
@@ -963,34 +438,8 @@
             document.getElementById('total-amount').textContent = formattedTotal;
             document.getElementById('hidden-total').value = total;
         }
-
-        function clearForm() {
-            if (confirm('Bạn có chắc chắn muốn xóa hết câu trả lời?')) {
-                document.querySelectorAll('input[type="number"]').forEach(input => {
-                    input.value = 0;
-                    updateButtons(input);
-                });
-                document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]').forEach(input => {
-                    input.value = '';
-                });
-                calculateTotal();
-            }
-        }
-
-        // Add focus effect
-        document.querySelectorAll('.question-section').forEach(section => {
-            const input = section.querySelector('input');
-            if (input) {
-                input.addEventListener('focus', () => {
-                    section.classList.add('focused');
-                });
-                input.addEventListener('blur', () => {
-                    section.classList.remove('focused');
-                });
-            }
-        });
-
-        // Initialize buttons state
+        
+        // Khởi tạo trạng thái
         document.addEventListener('DOMContentLoaded', () => {
             calculateTotal();
             document.querySelectorAll('.quantity-input').forEach(input => {
