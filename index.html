@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Mở Bán Merch Sớm</title>
+    <style>
+        /* CSS Cơ Bản (Tùy chỉnh thêm theo ý bạn) */
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; padding: 20px; }
+        .container { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); max-width: 600px; width: 100%; }
+        h1 { text-align: center; color: #333; }
+        label { display: block; margin-top: 15px; font-weight: bold; }
+        input[type="text"], input[type="email"], input[type="number"], input[type="tel"] { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .product-item { display: flex; align-items: center; margin-bottom: 10px; border-bottom: 1px dashed #eee; padding-bottom: 10px; }
+        .product-item label { flex: 3; margin-top: 0; font-weight: normal; }
+        .product-item input[type="number"] { flex: 1; margin-left: 20px; text-align: right; }
+        .summary { border-top: 2px solid #5c6bc0; padding-top: 15px; margin-top: 20px; font-size: 1.2em; font-weight: bold; }
+        .summary span { float: right; color: #e53935; }
+        button { background-color: #5c6bc0; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; width: 100%; margin-top: 20px; font-size: 1.1em; }
+        button:hover { background-color: #3f51b5; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mở bán merch sớm</h1>
+
+        <form name="merch-order-form" method="POST" data-netlify="true">
+            
+            <fieldset>
+                <legend>Thông Tin Cá Nhân</legend>
+                <label for="ho_ten">Họ và Tên (*)</label>
+                <input type="text" id="ho_ten" name="ho_ten" required>
+                
+                <label for="mssv">Mã số sinh viên (*)</label>
+                <input type="text" id="mssv" name="ma_so_sinh_vien" required>
+
+                <label for="email">Địa chỉ Email của bạn (*)</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="sdt">Số điện thoại cá nhân</label>
+                <input type="tel" id="sdt" name="so_dien_thoai">
+            </fieldset>
+
+            <fieldset>
+                <legend>Đặt hàng (Nhập số lượng)</legend>
+                
+                <div class="product-item" data-price="15000">
+                    <label>Badge (15.000 VNĐ)</label>
+                    <input type="number" name="sl_badge" min="0" value="0" oninput="calculateTotal()">
+                </div>
+
+                <div class="product-item" data-price="30000">
+                    <label>Dây thẻ (30.000 VNĐ)</label>
+                    <input type="number" name="sl_day_the" min="0" value="0" oninput="calculateTotal()">
+                </div>
+
+                <div class="product-item" data-price="15000">
+                    <label>Keychain (15.000 VNĐ)</label>
+                    <input type="number" name="sl_keychain" min="0" value="0" oninput="calculateTotal()">
+                </div>
+
+                <div class="product-item" data-price="15000">
+                    <label>Sticker (15.000 VNĐ)</label>
+                    <input type="number" name="sl_sticker" min="0" value="0" oninput="calculateTotal()">
+                </div>
+                
+                <div class="product-item" data-price="40000">
+                    <label>Vỏ thẻ (40.000 VNĐ)</label>
+                    <input type="number" name="sl_vo_the" min="0" value="0" oninput="calculateTotal()">
+                </div>
+                
+                <div class="product-item" data-price="100000"> 
+                    <label>Full set 5 món (Giá set: 100.000 VNĐ)</label>
+                    <input type="number" name="sl_full_set" min="0" value="0" oninput="calculateTotal()">
+                </div>
+            </fieldset>
+
+            <div class="summary">
+                Tổng Số Tiền Tạm Tính: <span id="total-amount">0 VNĐ</span>
+                <input type="hidden" name="tong_tien_dat_hang" id="hidden-total" value="0">
+            </div>
+
+            <button type="submit">XÁC NHẬN ĐẶT HÀNG SỚM</button>
+        </form>
+    </div>
+
+    <script>
+        // Hàm tính toán tổng tiền
+        function calculateTotal() {
+            let total = 0;
+            const productItems = document.querySelectorAll('.product-item');
+
+            productItems.forEach(item => {
+                const price = parseInt(item.getAttribute('data-price')); // Lấy giá từ thuộc tính data-price
+                const quantityInput = item.querySelector('input[type="number"]');
+                let quantity = parseInt(quantityInput.value) || 0; // Lấy số lượng, nếu không nhập thì là 0
+
+                // Đảm bảo số lượng không âm
+                if (quantity < 0) {
+                    quantity = 0;
+                    quantityInput.value = 0;
+                }
+
+                total += price * quantity;
+            });
+
+            // Định dạng tiền tệ
+            const formattedTotal = total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+            
+            // Cập nhật hiển thị và trường ẩn
+            document.getElementById('total-amount').textContent = formattedTotal;
+            document.getElementById('hidden-total').value = total; // Lưu giá trị số vào trường ẩn
+        }
+
+        // Chạy hàm tính toán khi load trang lần đầu
+        document.addEventListener('DOMContentLoaded', calculateTotal);
+    </script>
+</body>
+</html>
