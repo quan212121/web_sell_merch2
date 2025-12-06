@@ -69,10 +69,28 @@
             .product-item { flex-direction: column; align-items: flex-start; }
             .quantity-control { width: 100%; }
         }
+        /* New CSS for Success Message */
+        .success-message {
+            background-color: #e6f7e9;
+            border: 1px solid #a8e6b1;
+            color: #1a5e20;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 16px;
+            font-weight: 600;
+            display: none; /* Ẩn mặc định */
+        }
     </style>
 </head>
 <body>
     <div class="form-container">
+        <!-- Message for successful submission -->
+        <div class="success-message" id="successMessage">
+            Đơn hàng của bạn đã được gửi thành công! Cảm ơn bạn đã đặt hàng.
+        </div>
+        
         <!-- Header -->
         <div class="form-header">
             <div class="header-banner"></div>
@@ -83,10 +101,13 @@
         </div>
 
         <!-- FORM CHÍNH - CẤU HÌNH CHO NETLIFY -->
-        <form name="merch-order-form" id="orderForm" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/index.html">
+        <form name="merch-order-form" id="orderForm" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/">
             
             <!-- Honeypot để chống spam -->
             <p style="display: none;"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
+
+            <!-- Thẻ ẩn để Netlify biết trang thành công (Success Page) là trang chủ -->
+            <input type="hidden" name="_next" value="/">
 
             <!-- Personal Info (Phần 1) -->
             <div class="question-section" data-field="ho_ten">
@@ -283,6 +304,9 @@
     <script>
         // BƯỚC QUAN TRỌNG: Gửi form lên Netlify sau khi xác nhận trong Modal
         function submitFormToNetlify() {
+            // Lưu cờ vào Local Storage trước khi gửi form
+            localStorage.setItem('formSubmitted', 'true'); 
+            
             const form = document.getElementById('orderForm');
             // Dữ liệu đã hợp lệ và đã xem thông tin thanh toán, giờ gửi Form chính thức
             form.submit(); // Gửi form Netlify
@@ -432,12 +456,31 @@
             document.getElementById('hidden-total').value = total;
         }
         
-        // Khởi tạo trạng thái
+        // Hàm để hiển thị thông báo thành công sau khi chuyển hướng
+        function displaySuccessMessage() {
+            const submitted = localStorage.getItem('formSubmitted');
+            if (submitted === 'true') {
+                const successMessage = document.getElementById('successMessage');
+                if (successMessage) {
+                    successMessage.style.display = 'block';
+                    // Xóa cờ sau khi hiển thị để không hiển thị lại khi tải lại trang lần sau
+                    localStorage.removeItem('formSubmitted'); 
+                    
+                    // Tùy chọn: Xóa dữ liệu form để bắt đầu đơn hàng mới
+                    document.getElementById('orderForm').reset();
+                    calculateTotal(); 
+                    document.querySelectorAll('.quantity-input').forEach(input => updateButtons(input));
+                }
+            }
+        }
+
+        // Khởi tạo trạng thái và kiểm tra thông báo thành công
         document.addEventListener('DOMContentLoaded', () => {
             calculateTotal();
             document.querySelectorAll('.quantity-input').forEach(input => {
                 updateButtons(input);
             });
+            displaySuccessMessage(); // Gọi hàm kiểm tra và hiển thị thông báo thành công
         });
     </script>
 </body>
