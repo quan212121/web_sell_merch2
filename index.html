@@ -83,7 +83,7 @@
         </div>
 
         <!-- FORM CHÍNH - CẤU HÌNH CHO NETLIFY -->
-        <form name="merch-order-form" id="orderForm" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="return handleFormSubmission(event);">
+        <form name="merch-order-form" id="orderForm" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/index.html">
             
             <!-- Honeypot để chống spam -->
             <p style="display: none;"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
@@ -281,30 +281,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <script>
-        // Hàm này không cần thiết nếu dùng form.submit()
-        function handleFormSubmission(event) {
-            event.preventDefault(); // Ngăn gửi form mặc định
-            return false;
-        }
-
-        // Tạo mã QR (Placeholder - BẠN PHẢI TỰ THAY ĐỔI)
-        function generateQRCode(content) {
-            const qrContainer = document.getElementById('qrCode');
-            qrContainer.innerHTML = ''; // Xóa QR cũ
-            
-            // TẠO QR ĐỘNG DÙNG THƯ VIỆN QRCODE.JS
-            // Chú ý: Đây là QR tĩnh chỉ chứa nội dung chuyển khoản. Để tạo VietQR, bạn cần API bên ngoài.
-            
-            new QRCode(qrContainer, {
-                text: content, // Nội dung chuyển khoản
-                width: 250,
-                height: 250,
-                colorDark : "#000000",
-                colorLight : "#ffffff",
-                correctLevel : QRCode.CorrectLevel.H
-            });
-        }
-        
         // BƯỚC QUAN TRỌNG: Gửi form lên Netlify sau khi xác nhận trong Modal
         function submitFormToNetlify() {
             const form = document.getElementById('orderForm');
@@ -389,6 +365,23 @@
         }
         
         // Các hàm tính toán số lượng và tổng tiền (Giữ nguyên)
+        function generateQRCode(content) {
+            const qrContainer = document.getElementById('qrCode');
+            qrContainer.innerHTML = ''; // Xóa QR cũ
+            
+            // TẠO QR ĐỘNG DÙNG THƯ VIỆN QRCODE.JS
+            // Chú ý: Đây là QR tĩnh chỉ chứa nội dung chuyển khoản. Để tạo VietQR, bạn cần API bên ngoài.
+            
+            new QRCode(qrContainer, {
+                text: content, // Nội dung chuyển khoản
+                width: 250,
+                height: 250,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        }
+        
         function increaseQuantity(button) {
             const input = button.parentElement.querySelector('.quantity-input');
             input.value = parseInt(input.value) + 1;
